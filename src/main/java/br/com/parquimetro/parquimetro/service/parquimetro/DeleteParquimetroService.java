@@ -1,0 +1,16 @@
+package br.com.parquimetro.parquimetro.service.parquimetro;
+
+import br.com.parquimetro.parquimetro.persiste.ParquimetroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class DeleteParquimetroService extends ParquimetroService {
+
+    @Autowired
+    public DeleteParquimetroService(ParquimetroRepository repository) {
+        super(repository);
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+}

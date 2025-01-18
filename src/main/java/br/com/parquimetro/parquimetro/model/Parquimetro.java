@@ -37,6 +37,20 @@ public class Parquimetro {
     @Enumerated(EnumType.ORDINAL)
     private StatusParquimetro statusParquimetro;
 
+    public Parquimetro() {
+    }
+
+    public Parquimetro(Long id, String enderecoCompleto, Integer latitude, Integer longitude, LocalTime tolerancia, Set<Sessao> sessoes, Set<Tarifa> tarifas, StatusParquimetro statusParquimetro) {
+        this.id = id;
+        this.enderecoCompleto = enderecoCompleto;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.tolerancia = tolerancia;
+        this.sessoes = sessoes;
+        this.tarifas = tarifas;
+        this.statusParquimetro = statusParquimetro;
+    }
+
     public LocalTime getTolerancia() {
         return tolerancia;
     }
