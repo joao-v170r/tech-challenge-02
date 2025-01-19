@@ -33,6 +33,7 @@ public abstract class ParquimetroService {
         parquimetro.setEnderecoCompleto(dto.enderecoCompleto());
         parquimetro.setLatitude(dto.latitude());
         parquimetro.setLongitude(dto.longitude());
+        parquimetro.setTolerancia(dto.tolerancia());
         parquimetro.setStatusParquimetro(dto.statusParquimetro());
 
         return parquimetro;

@@ -8,6 +8,7 @@ import br.com.parquimetro.parquimetro.model.context.FormaPagamento;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tb_pagamento")
 public class Pagamento {
 
     @Id
