@@ -17,10 +17,11 @@ public class Sessao {
     private LocalDateTime dtEntrada;
     private LocalDateTime dtSaida;
 
-    @OneToOne(mappedBy = "sessao", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
     private Pagamento pagamento;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parquimetro_id")
     private Parquimetro parquimetro;
 

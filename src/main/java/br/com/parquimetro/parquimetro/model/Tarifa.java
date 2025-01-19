@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -26,8 +24,16 @@ public class Tarifa {
     BigDecimal precoIntervalo;
     LocalTime  invervalo;
 
-    @ManyToMany(mappedBy = "tarifas")
-    List<Parquimetro> parquimetros = new ArrayList<>();
+    @ManyToMany(mappedBy = "tarifas", cascade = CascadeType.ALL)
+    Set<Parquimetro> parquimetros = new HashSet<>();
+
+    public void addParquimetro(Parquimetro parquimetro) {
+        parquimetros.add(parquimetro);
+    }
+
+    public void removeParquimetro(Parquimetro parquimetro) {
+        parquimetros.remove(parquimetro);
+    }
 
     public Long getId() {
         return id;
@@ -53,11 +59,11 @@ public class Tarifa {
         this.invervalo = invervalo;
     }
 
-    public List<Parquimetro> getParquimetros() {
+    public Set<Parquimetro> getParquimetros() {
         return parquimetros;
     }
 
-    public void setParquimetros(List<Parquimetro> parquimetros) {
+    public void setParquimetros(Set<Parquimetro> parquimetros) {
         this.parquimetros = parquimetros;
     }
 

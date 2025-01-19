@@ -7,6 +7,7 @@ import java.util.Objects;
 import br.com.parquimetro.parquimetro.model.context.FormaPagamento;
 import jakarta.persistence.*;
 
+@Entity
 public class Pagamento {
 
     @Id

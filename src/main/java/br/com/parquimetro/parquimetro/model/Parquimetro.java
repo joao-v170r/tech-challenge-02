@@ -1,15 +1,10 @@
 package br.com.parquimetro.parquimetro.model;
 
-import javax.annotation.processing.Generated;
-
 import br.com.parquimetro.parquimetro.model.context.StatusParquimetro;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="tb_parquimetro")
@@ -26,7 +21,7 @@ public class Parquimetro {
     @OneToMany(mappedBy = "parquimetro", cascade = CascadeType.ALL, orphanRemoval = false)
     private Set<Sessao> sessoes = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "tb_parquimetro_tarifa",
             joinColumns = @JoinColumn(name = "parquimetro_id"),
@@ -59,14 +54,6 @@ public class Parquimetro {
         this.tolerancia = tolerancia;
     }
 
-    public Set<Sessao> getSessoes() {
-        return sessoes;
-    }
-
-    public void setSessoes(Set<Sessao> sessoes) {
-        this.sessoes = sessoes;
-    }
-
     public Set<Tarifa> getTarifas() {
         return tarifas;
     }
@@ -76,7 +63,26 @@ public class Parquimetro {
     }
 
     public void addTarifa(Tarifa tarifa){
+        tarifa.addParquimetro(this);
         this.tarifas.add(tarifa);
+    }
+
+    public void removeTarifa(Tarifa tarifa) {
+        this.tarifas.remove(tarifa);
+        tarifa.removeParquimetro(this);
+    }
+
+    public Set<Sessao> getSessoes() {
+        return sessoes;
+    }
+
+    public void setSessoes(Set<Sessao> sessoes) {
+        this.sessoes = sessoes;
+    }
+
+    public void addSessao(Sessao sessao) {
+        sessao.setParquimetro(this);
+        sessoes.add(sessao);
     }
 
     public Long getId() {
@@ -118,6 +124,7 @@ public class Parquimetro {
     public void setLongitude(Integer longitude) {
         this.longitude = longitude;
     }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

@@ -15,12 +15,12 @@ public class UpdateParquimetroService extends ParquimetroService {
     }
 
     public ParquimetroDTO update(Long id, RequestParquimetroDTO dto) {
-        var lastParquimetro = repository.getReferenceById(id);
-        lastParquimetro.setLatitude(dto.latitude());
-        lastParquimetro.setLongitude(dto.longitude());
-        lastParquimetro.setTolerancia(dto.tolerancia());
-        lastParquimetro.setEnderecoCompleto(dto.enderecoCompleto());
-        lastParquimetro.setStatusParquimetro(dto.statusParquimetro());
-        return toParquimetroDTO(lastParquimetro);
+        var parquimetro = repository.getReferenceById(id);
+        parquimetro.setLatitude(dto.latitude());
+        parquimetro.setLongitude(dto.longitude());
+        parquimetro.setTolerancia(dto.tolerancia());
+        parquimetro.setEnderecoCompleto(dto.enderecoCompleto());
+        parquimetro.setStatusParquimetro(dto.statusParquimetro());
+        return toParquimetroDTO(repository.save(parquimetro));
     }
 }
