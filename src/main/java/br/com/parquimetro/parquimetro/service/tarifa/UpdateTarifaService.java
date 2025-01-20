@@ -6,7 +6,9 @@ import br.com.parquimetro.parquimetro.dto.TarifaDTO;
 import br.com.parquimetro.parquimetro.model.Tarifa;
 import br.com.parquimetro.parquimetro.persiste.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UpdateTarifaService extends TarifaService {
 
     @Autowired
