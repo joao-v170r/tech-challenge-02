@@ -15,9 +15,6 @@ public record ParquimetroDTO(
     Integer latitude,
     Integer longitude,
     LocalTime tolerancia,
-    Set<Sessao> sessoes,
-    Set<TarifaDTO> tarifas,
+    Set<Tarifa> tarifas,
     StatusParquimetro statusParquimetro
-) {
-
-}
+) {}

@@ -25,8 +25,7 @@ public abstract class ParquimetroService {
                 parquimetro.getLatitude(),
                 parquimetro.getLongitude(),
                 parquimetro.getTolerancia(),
-                parquimetro.getSessoes(),
-                parquimetro.getTarifas().stream().map(TarifaService::toTarifaDTO).collect(Collectors.toSet()),
+                parquimetro.getTarifas(),
                 parquimetro.getStatusParquimetro()
         );
     }

@@ -1,6 +1,7 @@
 package br.com.parquimetro.parquimetro.model;
 
 import br.com.parquimetro.parquimetro.model.context.StatusParquimetro;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -20,7 +21,7 @@ public class Parquimetro {
     private LocalTime tolerancia;
 
     @OneToMany(mappedBy = "parquimetro", cascade = CascadeType.ALL, orphanRemoval = false)
-    @JsonManagedReference
+    @JsonBackReference
     private Set<Sessao> sessoes = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -61,10 +62,6 @@ public class Parquimetro {
         return tarifas;
     }
 
-    public void setTarifas(Set<Tarifa> tarifas) {
-        this.tarifas = tarifas;
-    }
-
     public void addTarifa(Tarifa tarifa){
         tarifa.addParquimetro(this);
         this.tarifas.add(tarifa);
@@ -77,10 +74,6 @@ public class Parquimetro {
 
     public Set<Sessao> getSessoes() {
         return sessoes;
-    }
-
-    public void setSessoes(Set<Sessao> sessoes) {
-        this.sessoes = sessoes;
     }
 
     public void addSessao(Sessao sessao) {

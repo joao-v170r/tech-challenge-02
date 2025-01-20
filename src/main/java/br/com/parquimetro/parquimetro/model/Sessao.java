@@ -29,7 +29,7 @@ public class Sessao {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parquimetro_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Parquimetro parquimetro;
 
     @Enumerated(EnumType.ORDINAL)

@@ -83,8 +83,8 @@ public class SessaoService {
                 sessao.getPlacaCarro(),
                 sessao.getDtEntrada(),
                 sessao.getDtSaida(),
-                sessao.getPagamento() == null ? null : PagamentoService.toPagamentoDTO(sessao.getPagamento()),
-                sessao.getParquimetro() == null ? null : ParquimetroService.toParquimetroDTO(sessao.getParquimetro()),
+                sessao.getPagamento(),// == null ? null : PagamentoService.toPagamentoDTO(sessao.getPagamento()),
+                sessao.getParquimetro(),// == null ? null : ParquimetroService.toParquimetroDTO(sessao.getParquimetro()),
                 sessao.getStatusSessao()
         );
     }
