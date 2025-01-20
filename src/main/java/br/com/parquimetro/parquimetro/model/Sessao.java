@@ -1,7 +1,10 @@
 package br.com.parquimetro.parquimetro.model;
 
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 import br.com.parquimetro.parquimetro.model.context.StatusSessao;
 import jakarta.persistence.*;
@@ -28,6 +31,14 @@ public class Sessao {
     @Enumerated(EnumType.ORDINAL)
     private StatusSessao statusSessao;
 
+    public Sessao() {}
+
+    public Sessao(String placaCarro, Parquimetro parquimetro) {
+        this.placaCarro = placaCarro;
+        this.dtEntrada = LocalDateTime.now();
+        this.parquimetro = parquimetro;
+        this.statusSessao = StatusSessao.EM_ANDAMENTO;
+    }
 
     public StatusSessao getStatusSessao() {
         return statusSessao;
@@ -83,6 +94,24 @@ public class Sessao {
 
     public void setParquimetro(Parquimetro parquimetro) {
         this.parquimetro = parquimetro;
+    }
+
+    public BigDecimal getCustoSessao() {
+        Duration tempoDecorrido = Duration.between(this.getDtEntrada(), this.getDtSaida());
+        Set<Tarifa> tarifas = parquimetro.getTarifas();
+        Tarifa tarifaMaisProxima = null;
+        long diferencaMinima = Long.MAX_VALUE;
+        for (Tarifa tarifa : tarifas) {
+            Duration intervaloTarifa = Duration.ofHours(tarifa.getInvervalo().getHour())
+                    .plusMinutes(tarifa.getInvervalo().getMinute());
+            long diferencaAtual = Math.abs(tempoDecorrido.toMinutes() - intervaloTarifa.toMinutes());
+            if (diferencaAtual < diferencaMinima) {
+                diferencaMinima = diferencaAtual;
+                tarifaMaisProxima = tarifa;
+            }
+        }
+        BigDecimal horas = BigDecimal.valueOf(tempoDecorrido.toHours());
+        return tarifaMaisProxima != null ? tarifaMaisProxima.getPrecoIntervalo().multiply(horas) : BigDecimal.ZERO;
     }
 
     @Override
