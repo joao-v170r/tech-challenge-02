@@ -16,15 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sessao")
-@Tag(name = "Sessão", description = "Endpoints de uma sessão de um veículo.")  // Add a description for this controller
+@Tag(name = "Sessão", description = "Endpoints de uma sessão de estacionamento de um veículo.")  // Add a description for this controller
 public class SessaoController {
 
-    private final SessaoService sessaoService;
-
     @Autowired
-    public SessaoController(SessaoService sessaoService) {
-        this.sessaoService = sessaoService;
-    }
+    private SessaoService sessaoService;
 
     @GetMapping("/{id}")
     @Operation(
@@ -48,7 +44,7 @@ public class SessaoController {
         return ResponseEntity.ok(sessaoDTOS);
     }
 
-    @PostMapping
+    @PostMapping("/init")
     @Operation(
             summary = "Cria uma sessão.",
             description = "Veículo entrou no estacionamento, sessão em andamento."
@@ -58,7 +54,7 @@ public class SessaoController {
         return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(sessaoService.save(criarSessaoDTO));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/finish")
     @Operation(
             summary = "Conclui a sessão.",
             description = "Veículo saiu do estacionamento. O status da sessão é alterado para concluído. " +
