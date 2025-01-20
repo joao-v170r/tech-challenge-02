@@ -2,7 +2,7 @@ package br.com.parquimetro.parquimetro.controller;
 
 import br.com.parquimetro.parquimetro.dto.sessao.CriarSessaoDTO;
 import br.com.parquimetro.parquimetro.dto.sessao.SessaoDTO;
-import br.com.parquimetro.parquimetro.service.SessaoService;
+import br.com.parquimetro.parquimetro.service.sessao.SessaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +55,7 @@ public class SessaoController {
     )
     public ResponseEntity<SessaoDTO> save(@Valid @RequestBody CriarSessaoDTO criarSessaoDTO) {
         SessaoDTO sessaoDTOSaved = sessaoService.save(criarSessaoDTO);
-        return new ResponseEntity<>(sessaoDTOSaved, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(sessaoService.save(criarSessaoDTO));
     }
 
     @PutMapping("/{id}")

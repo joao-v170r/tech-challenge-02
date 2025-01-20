@@ -1,14 +1,11 @@
 package br.com.parquimetro.parquimetro.service.tarifa;
 
-import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
-import br.com.parquimetro.parquimetro.dto.RequestParquimetroDTO;
 import br.com.parquimetro.parquimetro.dto.RequestTarifaDTO;
 import br.com.parquimetro.parquimetro.dto.TarifaDTO;
-import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.model.Tarifa;
-import br.com.parquimetro.parquimetro.persiste.TarifaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import br.com.parquimetro.parquimetro.repository.TarifaRepository;
+
+import java.time.LocalTime;
 
 public class TarifaService {
 
@@ -18,13 +15,11 @@ public class TarifaService {
         this.repository = repository;
     }
 
-    protected TarifaDTO toTarifaDTO(Tarifa tarifa) {
+    public static TarifaDTO toTarifaDTO(Tarifa tarifa) {
         return new TarifaDTO(
                 tarifa.getId(),
                 tarifa.getPrecoIntervalo(),
-                tarifa.getInvervalo(),
-                tarifa.getParquimetros()
-
+                tarifa.getInvervalo()
         );
     }
 
@@ -32,7 +27,7 @@ public class TarifaService {
         Tarifa tarifa = new Tarifa();
 
         tarifa.setPrecoIntervalo(dto.precoIntervalo());
-        tarifa.setInvervalo(dto.intervalo());
+        tarifa.setInvervalo(LocalTime.parse(dto.intervalo()));
 
         return tarifa;
     }

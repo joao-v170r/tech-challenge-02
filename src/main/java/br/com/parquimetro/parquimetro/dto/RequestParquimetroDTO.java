@@ -8,6 +8,6 @@ public record RequestParquimetroDTO(
         String enderecoCompleto,
         Integer latitude,
         Integer longitude,
-        LocalTime tolerancia,
+        String tolerancia,
         StatusParquimetro statusParquimetro
 ) {}

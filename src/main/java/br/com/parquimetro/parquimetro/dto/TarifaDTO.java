@@ -9,6 +9,5 @@ import java.util.Set;
 public record TarifaDTO(
         Long id,
         BigDecimal precoIntervalo,
-        LocalTime intervalo,
-        Set<Parquimetro> parquimetros
+        LocalTime intervalo
 ) {}

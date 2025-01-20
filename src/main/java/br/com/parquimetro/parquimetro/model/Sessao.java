@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import br.com.parquimetro.parquimetro.model.context.StatusSessao;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -22,10 +24,12 @@ public class Sessao {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Pagamento pagamento;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parquimetro_id")
+    @JsonBackReference
     private Parquimetro parquimetro;
 
     @Enumerated(EnumType.ORDINAL)

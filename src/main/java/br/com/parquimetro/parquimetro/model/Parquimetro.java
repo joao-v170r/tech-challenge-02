@@ -1,6 +1,7 @@
 package br.com.parquimetro.parquimetro.model;
 
 import br.com.parquimetro.parquimetro.model.context.StatusParquimetro;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
@@ -19,6 +20,7 @@ public class Parquimetro {
     private LocalTime tolerancia;
 
     @OneToMany(mappedBy = "parquimetro", cascade = CascadeType.ALL, orphanRemoval = false)
+    @JsonManagedReference
     private Set<Sessao> sessoes = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -27,6 +29,7 @@ public class Parquimetro {
             joinColumns = @JoinColumn(name = "parquimetro_id"),
             inverseJoinColumns = @JoinColumn(name = "tarifa_id")
     )
+    @JsonManagedReference
     private Set<Tarifa> tarifas = new HashSet<>();
 
     @Enumerated(EnumType.ORDINAL)

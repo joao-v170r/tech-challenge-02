@@ -8,6 +8,7 @@ import br.com.parquimetro.parquimetro.service.parquimetro.LinkTarifaParquimetroS
 import br.com.parquimetro.parquimetro.service.parquimetro.SaveParquimetroService;
 import br.com.parquimetro.parquimetro.service.parquimetro.UpdateParquimetroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class ParquimetroController {
 
     @PostMapping
     public ResponseEntity<ParquimetroDTO> save(@RequestBody RequestParquimetroDTO req) {
-        return ResponseEntity.ok(saveParquimetro.save(req));
+        return  ResponseEntity.status(HttpStatusCode.valueOf(201)).body(saveParquimetro.save(req));
     }
 
     @PutMapping("/{id}")

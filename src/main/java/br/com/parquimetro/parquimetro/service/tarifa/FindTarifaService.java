@@ -3,7 +3,7 @@ package br.com.parquimetro.parquimetro.service.tarifa;
 import br.com.parquimetro.parquimetro.dto.TarifaDTO;
 import br.com.parquimetro.parquimetro.erro.ServiceTarifaErro;
 import br.com.parquimetro.parquimetro.model.Tarifa;
-import br.com.parquimetro.parquimetro.persiste.TarifaRepository;
+import br.com.parquimetro.parquimetro.repository.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class FindTarifaService extends TarifaService {
 
     public List<TarifaDTO> findAll() {
         List<Tarifa> listTarifa = repository.findAll();
-        return listTarifa.stream().map(this::toTarifaDTO).toList();
+        return listTarifa.stream().map(FindTarifaService::toTarifaDTO).toList();
     }
 
     public TarifaDTO find(Long id) {

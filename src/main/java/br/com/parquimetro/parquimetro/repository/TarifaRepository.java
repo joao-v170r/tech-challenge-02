@@ -1,4 +1,4 @@
-package br.com.parquimetro.parquimetro.persiste;
+package br.com.parquimetro.parquimetro.repository;
 
 import br.com.parquimetro.parquimetro.model.Tarifa;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,7 @@ public class Tarifa {
     LocalTime  invervalo;
 
     @ManyToMany(mappedBy = "tarifas", cascade = CascadeType.ALL)
+    @JsonBackReference
     Set<Parquimetro> parquimetros = new HashSet<>();
 
     public void addParquimetro(Parquimetro parquimetro) {

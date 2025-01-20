@@ -3,7 +3,11 @@ package br.com.parquimetro.parquimetro.service.parquimetro;
 import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
 import br.com.parquimetro.parquimetro.dto.RequestParquimetroDTO;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
-import br.com.parquimetro.parquimetro.persiste.ParquimetroRepository;
+import br.com.parquimetro.parquimetro.repository.ParquimetroRepository;
+import br.com.parquimetro.parquimetro.service.tarifa.TarifaService;
+
+import java.time.LocalTime;
+import java.util.stream.Collectors;
 
 
 public abstract class ParquimetroService {
@@ -14,7 +18,7 @@ public abstract class ParquimetroService {
         this.repository = repository;
     }
 
-    protected ParquimetroDTO toParquimetroDTO(Parquimetro parquimetro) {
+    public static ParquimetroDTO toParquimetroDTO(Parquimetro parquimetro) {
         return new ParquimetroDTO(
                 parquimetro.getId(),
                 parquimetro.getEnderecoCompleto(),
@@ -22,7 +26,7 @@ public abstract class ParquimetroService {
                 parquimetro.getLongitude(),
                 parquimetro.getTolerancia(),
                 parquimetro.getSessoes(),
-                parquimetro.getTarifas(),
+                parquimetro.getTarifas().stream().map(TarifaService::toTarifaDTO).collect(Collectors.toSet()),
                 parquimetro.getStatusParquimetro()
         );
     }
@@ -33,7 +37,7 @@ public abstract class ParquimetroService {
         parquimetro.setEnderecoCompleto(dto.enderecoCompleto());
         parquimetro.setLatitude(dto.latitude());
         parquimetro.setLongitude(dto.longitude());
-        parquimetro.setTolerancia(dto.tolerancia());
+        parquimetro.setTolerancia(LocalTime.parse(dto.tolerancia()));
         parquimetro.setStatusParquimetro(dto.statusParquimetro());
 
         return parquimetro;

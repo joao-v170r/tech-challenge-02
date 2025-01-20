@@ -5,6 +5,6 @@ import java.time.LocalTime;
 
 public record RequestTarifaDTO(
         BigDecimal precoIntervalo,
-        LocalTime intervalo
+        String intervalo
 ) {
 }

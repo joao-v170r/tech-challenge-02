@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import br.com.parquimetro.parquimetro.model.context.FormaPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,7 @@ public class Pagamento {
     private Long id;
 
     @OneToOne(mappedBy = "pagamento", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Sessao sessao;
 
     private LocalDateTime dtPagamento;

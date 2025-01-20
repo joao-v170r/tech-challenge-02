@@ -4,8 +4,8 @@ import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
 import br.com.parquimetro.parquimetro.erro.ServiceParquimetroErro;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.model.Tarifa;
-import br.com.parquimetro.parquimetro.persiste.ParquimetroRepository;
-import br.com.parquimetro.parquimetro.persiste.TarifaRepository;
+import br.com.parquimetro.parquimetro.repository.ParquimetroRepository;
+import br.com.parquimetro.parquimetro.repository.TarifaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,9 +2,11 @@ package br.com.parquimetro.parquimetro.service.parquimetro;
 
 import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
 import br.com.parquimetro.parquimetro.dto.RequestParquimetroDTO;
-import br.com.parquimetro.parquimetro.persiste.ParquimetroRepository;
+import br.com.parquimetro.parquimetro.repository.ParquimetroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
 
 @Service
 public class UpdateParquimetroService extends ParquimetroService {
@@ -18,7 +20,7 @@ public class UpdateParquimetroService extends ParquimetroService {
         var parquimetro = repository.getReferenceById(id);
         parquimetro.setLatitude(dto.latitude());
         parquimetro.setLongitude(dto.longitude());
-        parquimetro.setTolerancia(dto.tolerancia());
+        parquimetro.setTolerancia(LocalTime.parse(dto.tolerancia()));
         parquimetro.setEnderecoCompleto(dto.enderecoCompleto());
         parquimetro.setStatusParquimetro(dto.statusParquimetro());
         return toParquimetroDTO(repository.save(parquimetro));
