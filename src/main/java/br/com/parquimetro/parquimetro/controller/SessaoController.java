@@ -38,7 +38,7 @@ public class SessaoController {
             description = "Obtém todas as sessões de um parquimetro através do id do parquímetro."
     )
     public ResponseEntity<Page<SessaoDTO>> findAllByParquimetro(@PathVariable Long id,
-            @PageableDefault(page = 0, size = 10, sort = "nome") Pageable pageable
+            @PageableDefault(page = 0, size = 10, sort = "id") Pageable pageable
     ) {
         Page<SessaoDTO> sessaoDTOS = sessaoService.findAllByParquimetro(id, pageable);
         return ResponseEntity.ok(sessaoDTOS);
@@ -50,17 +50,15 @@ public class SessaoController {
             description = "Veículo entrou no estacionamento, sessão em andamento."
     )
     public ResponseEntity<SessaoDTO> save(@Valid @RequestBody CriarSessaoDTO criarSessaoDTO) {
-        SessaoDTO sessaoDTOSaved = sessaoService.save(criarSessaoDTO);
+        sessaoService.save(criarSessaoDTO);
         return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(sessaoService.save(criarSessaoDTO));
     }
 
     @PutMapping("/{id}/finish")
     @Operation(
             summary = "Conclui a sessão.",
-            description = "Veículo saiu do estacionamento. O status da sessão é alterado para concluído. " +
-                    "É avaliado se o veículo ficou no estacionamento além da tolerância, " +
-                    "e caso tenha ficado, é calculado o valor a ser cobrado " +
-                    "e gerado a ordem de pagamento."
+            description = "Veículo saiu do estacionamento. Avalia se o cliente pagou o " +
+                    "estacionamento e se excedeu o tempo após o pagamento."
     )
     public ResponseEntity<SessaoDTO> update(@PathVariable Long id) {
         SessaoDTO sessaoDTOUpdated = sessaoService.update(id);

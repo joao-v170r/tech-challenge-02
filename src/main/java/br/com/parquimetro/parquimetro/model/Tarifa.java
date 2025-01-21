@@ -7,13 +7,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="tb_tarifa")
@@ -22,7 +16,9 @@ public class Tarifa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    @Column(name = "preco_intervalo")
     BigDecimal precoIntervalo;
+    @Column(name = "intervalo")
     LocalTime  invervalo;
 
     @ManyToMany(mappedBy = "tarifas", cascade = CascadeType.ALL)

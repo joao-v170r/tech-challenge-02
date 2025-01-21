@@ -18,8 +18,11 @@ public class Sessao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "placa_carro")
     private String placaCarro;
+    @Column(name = "dt_entrada")
     private LocalDateTime dtEntrada;
+    @Column(name = "dt_saida")
     private LocalDateTime dtSaida;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -33,6 +36,7 @@ public class Sessao {
     private Parquimetro parquimetro;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status_sessao")
     private StatusSessao statusSessao;
 
     public Sessao() {}
@@ -98,24 +102,6 @@ public class Sessao {
 
     public void setParquimetro(Parquimetro parquimetro) {
         this.parquimetro = parquimetro;
-    }
-
-    public BigDecimal getCustoSessao() {
-        Duration tempoDecorrido = Duration.between(this.getDtEntrada(), this.getDtSaida());
-        Set<Tarifa> tarifas = parquimetro.getTarifas();
-        Tarifa tarifaMaisProxima = null;
-        long diferencaMinima = Long.MAX_VALUE;
-        for (Tarifa tarifa : tarifas) {
-            Duration intervaloTarifa = Duration.ofHours(tarifa.getInvervalo().getHour())
-                    .plusMinutes(tarifa.getInvervalo().getMinute());
-            long diferencaAtual = Math.abs(tempoDecorrido.toMinutes() - intervaloTarifa.toMinutes());
-            if (diferencaAtual < diferencaMinima) {
-                diferencaMinima = diferencaAtual;
-                tarifaMaisProxima = tarifa;
-            }
-        }
-        BigDecimal horas = BigDecimal.valueOf(tempoDecorrido.toHours());
-        return tarifaMaisProxima != null ? tarifaMaisProxima.getPrecoIntervalo().multiply(horas) : BigDecimal.ZERO;
     }
 
     @Override

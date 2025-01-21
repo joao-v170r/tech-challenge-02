@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import br.com.parquimetro.parquimetro.model.context.FormaPagamento;
+import br.com.parquimetro.parquimetro.model.context.StatusSessao;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
@@ -20,11 +21,27 @@ public class Pagamento {
     @JsonBackReference
     private Sessao sessao;
 
+    @Column(name = "dt_pagamento")
     private LocalDateTime dtPagamento;
+
+    @Column(name = "valor_pagamento")
     private BigDecimal valorPagamento;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "forma_pagamento")
     private FormaPagamento formaPagamento;
+
+    public Pagamento() {}
+
+    public Pagamento(Sessao sessao, BigDecimal valorPagamento, FormaPagamento formaPagamento) {
+        this.sessao = sessao;
+        this.dtPagamento = LocalDateTime.now();
+        this.valorPagamento = valorPagamento;
+        if (Objects.equals(valorPagamento, BigDecimal.ZERO)) {
+            formaPagamento = FormaPagamento.SEM_PAGAMENTO;
+        }
+        this.formaPagamento = formaPagamento;
+    }
 
     public Long getId() {
         return id;

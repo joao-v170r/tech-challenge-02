@@ -15,6 +15,7 @@ public class Parquimetro {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "endereco_completo")
     private String enderecoCompleto;
     private Integer latitude;
     private Integer longitude;
@@ -34,6 +35,7 @@ public class Parquimetro {
     private Set<Tarifa> tarifas = new HashSet<>();
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "status_parquimetro")
     private StatusParquimetro statusParquimetro;
 
     public Parquimetro() {
