@@ -1,7 +1,7 @@
 package br.com.parquimetro.parquimetro.service.parquimetro;
 
 import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
-import br.com.parquimetro.parquimetro.erro.ServiceParquimetroErro;
+import br.com.parquimetro.parquimetro.erro.ServiceParquimetroNotFoundErro;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.model.Tarifa;
 import br.com.parquimetro.parquimetro.repository.ParquimetroRepository;
@@ -22,9 +22,9 @@ public class LinkTarifaParquimetroService extends ParquimetroService {
 
     public ParquimetroDTO link(Long parquimetroId, Long tarifaId) {
         Parquimetro parquimetro = repository.findById(parquimetroId)
-                .orElseThrow(() -> new ServiceParquimetroErro("id parquimetro não encontrado"));
+                .orElseThrow(() -> new ServiceParquimetroNotFoundErro("id parquimetro não encontrado"));
         Tarifa tarifa = tarifaRepository.findById(tarifaId)
-                .orElseThrow(() -> new ServiceParquimetroErro("id tarifa não encontrado"));
+                .orElseThrow(() -> new ServiceParquimetroNotFoundErro("id tarifa não encontrado"));
 
         parquimetro.addTarifa(tarifa);
 
@@ -33,9 +33,9 @@ public class LinkTarifaParquimetroService extends ParquimetroService {
 
     public ParquimetroDTO unlink(Long parquimetroId, Long tarifaId) {
         Parquimetro parquimetro = repository.findById(parquimetroId)
-                .orElseThrow(() -> new ServiceParquimetroErro("id parquimetro não encontrado"));
+                .orElseThrow(() -> new ServiceParquimetroNotFoundErro("id parquimetro não encontrado"));
         Tarifa tarifa = tarifaRepository.findById(tarifaId)
-                .orElseThrow(() -> new ServiceParquimetroErro("id tarifa não encontrado"));
+                .orElseThrow(() -> new ServiceParquimetroNotFoundErro("id tarifa não encontrado"));
 
         parquimetro.removeTarifa(tarifa);
 
