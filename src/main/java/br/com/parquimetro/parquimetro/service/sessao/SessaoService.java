@@ -41,7 +41,7 @@ public class SessaoService {
         return sessoes.map(this::toDTO);
     }
 
-    public SessaoDTO save(RequestSessaoDTO requestSessaoDTO) {
+    public SessaoDTO create(RequestSessaoDTO requestSessaoDTO) {
         Parquimetro parquimetro = parquimetroRepository.findById(requestSessaoDTO.parquimetroId())
                 .orElseThrow(() -> new IllegalArgumentException("Não foi possível encontrar o parquímetro com o id: " + requestSessaoDTO.parquimetroId()));
         Sessao sessao = new Sessao(
@@ -51,18 +51,23 @@ public class SessaoService {
         return toDTO(sessaoRepository.save(sessao));
     }
 
-    public SessaoDTO update(Long id) {
+    public SessaoDTO finish(Long id) {
         try {
             Sessao sessao = sessaoRepository.getReferenceById(id);
-            // Não permite saída se não foi realizado o pagamento.
-            if (sessao.getPagamento() == null) {
+            boolean isPeriodoTolerancia = CustoSessao.getTempoDecorridoSessao(sessao)
+                                                .compareTo(CustoSessao.converterParaDuration(sessao.getParquimetro().getTolerancia())) <= 0;
+
+            // Não permite saída se não foi realizado o pagamento E ja estiver ultrapassado o periodo de tolerancia.
+            if (!isPeriodoTolerancia && sessao.getPagamento() == null) {
                 return toDTO(sessao);
             }
+
             // Não permite saída se o cliente ficou até a próxima tarifa.
             BigDecimal custoSessao = CustoSessao.getCustoSessao(sessao);
-            if (sessao.getPagamento().getValorPagamento().compareTo(custoSessao) != 0) {
+            if (!isPeriodoTolerancia && sessao.getPagamento().getValorPagamento().compareTo(custoSessao) != 0) {
                 return toDTO(sessao);
             }
+
             // Concluir sessão.
             sessao.setDtSaida(LocalDateTime.now());
             sessao.setStatusSessao(StatusSessao.FINALIZADA);

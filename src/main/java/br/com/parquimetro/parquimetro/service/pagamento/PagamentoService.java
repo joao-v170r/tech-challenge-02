@@ -2,7 +2,7 @@ package br.com.parquimetro.parquimetro.service.pagamento;
 
 import br.com.parquimetro.parquimetro.erro.not_found.PagamentoNotFoundErro;
 import br.com.parquimetro.parquimetro.erro.not_found.SessaoNotFoundException;
-import br.com.parquimetro.parquimetro.dto.pagamento.CriarPagamentoDTO;
+import br.com.parquimetro.parquimetro.dto.pagamento.RequestPagamentoDTO;
 import br.com.parquimetro.parquimetro.dto.pagamento.PagamentoDTO;
 import br.com.parquimetro.parquimetro.model.Pagamento;
 import br.com.parquimetro.parquimetro.model.Sessao;
@@ -27,11 +27,11 @@ public class PagamentoService {
         this.sessaoRepository = sessaoRepository;
     }
 
-    public PagamentoDTO save(CriarPagamentoDTO criarPagamentoDTO) {
-        Sessao sessao = sessaoRepository.findById(criarPagamentoDTO.sessaoId())
-                .orElseThrow(() -> new PagamentoNotFoundErro("não foi possível encontrar a sessão com o id: " + criarPagamentoDTO.sessaoId()));
+    public PagamentoDTO save(RequestPagamentoDTO requestPagamentoDTO) {
+        Sessao sessao = sessaoRepository.findById(requestPagamentoDTO.sessaoId())
+                .orElseThrow(() -> new PagamentoNotFoundErro("não foi possível encontrar a sessão com o id: " + requestPagamentoDTO.sessaoId()));
         Pagamento pagamento = new Pagamento(sessao, CustoSessao.getCustoSessao(sessao),
-                criarPagamentoDTO.formaPagamento());
+                requestPagamentoDTO.formaPagamento());
         sessao.setPagamento(pagamento);
         sessaoRepository.save(sessao);
         return toPagamentoDTO(sessao.getPagamento());

@@ -49,9 +49,9 @@ public class SessaoController {
             summary = "Cria uma sessão.",
             description = "Veículo entrou no estacionamento, sessão em andamento."
     )
-    public ResponseEntity<SessaoDTO> save(@Valid @RequestBody RequestSessaoDTO requestSessaoDTO) {
-        sessaoService.save(requestSessaoDTO);
-        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(sessaoService.save(requestSessaoDTO));
+    public ResponseEntity<SessaoDTO> create(@Valid @RequestBody RequestSessaoDTO requestSessaoDTO) {
+        sessaoService.create(requestSessaoDTO);
+        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(sessaoService.create(requestSessaoDTO));
     }
 
     @PutMapping("/{id}/finish")
@@ -60,8 +60,8 @@ public class SessaoController {
             description = "Veículo saiu do estacionamento. Avalia se o cliente pagou o " +
                     "estacionamento e se excedeu o tempo após o pagamento."
     )
-    public ResponseEntity<SessaoDTO> update(@PathVariable Long id) {
-        SessaoDTO sessaoDTOUpdated = sessaoService.update(id);
-        return ResponseEntity.ok(sessaoDTOUpdated);
+    public ResponseEntity<SessaoDTO> finish(@PathVariable Long id) {
+        SessaoDTO sessaoDTOFinalizada = sessaoService.finish(id);
+        return ResponseEntity.ok(sessaoDTOFinalizada);
     }
 }

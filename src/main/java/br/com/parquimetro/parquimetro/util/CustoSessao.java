@@ -14,8 +14,12 @@ import java.util.TreeSet;
 
 public class CustoSessao {
 
+    public static Duration getTempoDecorridoSessao(Sessao sessao) {
+        return Duration.between(sessao.getDtEntrada(), LocalDateTime.now());
+    }
+
     public static BigDecimal getCustoSessao(Sessao sessao) {
-        Duration tempoDecorrido = Duration.between(sessao.getDtEntrada(), LocalDateTime.now());
+        Duration tempoDecorrido = getTempoDecorridoSessao(sessao);
         LocalTime tolerancia = sessao.getParquimetro().getTolerancia();
         // Dentro da tolerância fica pagamento de valor zero.
         if (tempoDecorrido.compareTo(converterParaDuration(tolerancia)) <= 0) {
@@ -40,7 +44,7 @@ public class CustoSessao {
         return tarifaEscolhida.getPrecoIntervalo();
     }
 
-    private static Duration converterParaDuration(LocalTime localTime) {
+    public static Duration converterParaDuration(LocalTime localTime) {
         return Duration.ofHours(localTime.getHour())
                 .plusMinutes(localTime.getMinute());
     }

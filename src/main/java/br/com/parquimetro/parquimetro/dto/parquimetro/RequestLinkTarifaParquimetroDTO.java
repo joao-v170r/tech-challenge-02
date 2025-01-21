@@ -1,11 +1,15 @@
 package br.com.parquimetro.parquimetro.dto.parquimetro;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NegativeOrZero;
+import jakarta.validation.constraints.NotNull;
 
 public record RequestLinkTarifaParquimetroDTO(
-        @NegativeOrZero(message = "o id do parquimetro não pode ser negativo ou zero")
+        @NotNull
+        @Min(1)
         Long parquimetroId,
-        @NegativeOrZero(message = "o id da tarifa não pode ser negativo ou zero")
+        @NotNull
+        @Min(1)
         Long tarifaId
 ) {
 }

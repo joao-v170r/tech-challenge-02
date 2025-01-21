@@ -1,6 +1,6 @@
 package br.com.parquimetro.parquimetro.controller;
 
-import br.com.parquimetro.parquimetro.dto.pagamento.CriarPagamentoDTO;
+import br.com.parquimetro.parquimetro.dto.pagamento.RequestPagamentoDTO;
 import br.com.parquimetro.parquimetro.dto.pagamento.PagamentoDTO;
 import br.com.parquimetro.parquimetro.service.pagamento.PagamentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,9 +24,9 @@ public class PagamentoController {
             summary = "Cria um pagamento.",
             description = "O motorista fez o pagamento de uma sessão."
     )
-    public ResponseEntity<PagamentoDTO> save(@Valid @RequestBody CriarPagamentoDTO criarPagamentoDTO) {
-        pagamentoService.save(criarPagamentoDTO);
-        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(pagamentoService.save(criarPagamentoDTO));
+    public ResponseEntity<PagamentoDTO> save(@Valid @RequestBody RequestPagamentoDTO requestPagamentoDTO) {
+        pagamentoService.save(requestPagamentoDTO);
+        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(pagamentoService.save(requestPagamentoDTO));
     }
 
     @PutMapping("/{id}")
