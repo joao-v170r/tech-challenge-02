@@ -21,7 +21,7 @@ public class Tarifa {
     @Column(name = "intervalo")
     LocalTime  invervalo;
 
-    @ManyToMany(mappedBy = "tarifas", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "tarifas", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JsonBackReference
     Set<Parquimetro> parquimetros = new HashSet<>();
 

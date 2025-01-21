@@ -25,7 +25,7 @@ public class Parquimetro {
     @JsonBackReference
     private Set<Sessao> sessoes = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "tb_parquimetro_tarifa",
             joinColumns = @JoinColumn(name = "parquimetro_id"),
