@@ -1,7 +1,5 @@
 package br.com.parquimetro.parquimetro.dto.sessao;
 
-import br.com.parquimetro.parquimetro.dto.PagamentoDTO;
-import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
 import br.com.parquimetro.parquimetro.model.Pagamento;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.model.context.StatusSessao;

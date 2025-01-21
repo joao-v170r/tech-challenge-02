@@ -3,14 +3,12 @@ package br.com.parquimetro.parquimetro.service.sessao;
 import br.com.parquimetro.parquimetro.controller.exception.ControllerNotFoundException;
 import br.com.parquimetro.parquimetro.dto.sessao.CriarSessaoDTO;
 import br.com.parquimetro.parquimetro.dto.sessao.SessaoDTO;
-import br.com.parquimetro.parquimetro.model.Pagamento;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.model.Sessao;
 import br.com.parquimetro.parquimetro.model.context.StatusSessao;
 import br.com.parquimetro.parquimetro.repository.ParquimetroRepository;
 import br.com.parquimetro.parquimetro.repository.SessaoRepository;
-import br.com.parquimetro.parquimetro.service.pagamento.PagamentoService;
-import br.com.parquimetro.parquimetro.service.parquimetro.ParquimetroService;
+import br.com.parquimetro.parquimetro.util.CustoSessao;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,9 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Service
 public class SessaoService {
@@ -58,18 +54,18 @@ public class SessaoService {
     public SessaoDTO update(Long id) {
         try {
             Sessao sessao = sessaoRepository.getReferenceById(id);
+            // Não permite saída se não foi realizado o pagamento.
+            if (sessao.getPagamento() == null) {
+                return toDTO(sessao);
+            }
+            // Não permite saída se o cliente ficou até a próxima tarifa.
+            BigDecimal custoSessao = CustoSessao.getCustoSessao(sessao);
+            if (sessao.getPagamento().getValorPagamento().compareTo(custoSessao) != 0) {
+                return toDTO(sessao);
+            }
+            // Concluir sessão.
             sessao.setDtSaida(LocalDateTime.now());
             sessao.setStatusSessao(StatusSessao.FINALIZADA);
-            Duration tempoDecorrido = Duration.between(sessao.getDtEntrada(), sessao.getDtSaida());
-            Duration tolerancia = Duration.between(LocalTime.MIN, sessao.getParquimetro().getTolerancia());
-            if (tempoDecorrido.toMillis() > tolerancia.toMillis()) {
-                Pagamento pagamento = new Pagamento();
-                pagamento.setDtPagamento(LocalDateTime.now());
-                pagamento.setSessao(sessao);
-                BigDecimal custoSessao = sessao.getCustoSessao();
-                pagamento.setValorPagamento(custoSessao);
-                sessao.setPagamento(pagamento);
-            }
             sessao = sessaoRepository.save(sessao);
             return toDTO(sessao);
         } catch (EntityNotFoundException e) {
