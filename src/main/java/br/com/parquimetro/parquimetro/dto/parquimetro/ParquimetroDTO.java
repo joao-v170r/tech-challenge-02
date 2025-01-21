@@ -1,10 +1,7 @@
-package br.com.parquimetro.parquimetro.dto;
+package br.com.parquimetro.parquimetro.dto.parquimetro;
 
-import br.com.parquimetro.parquimetro.model.Sessao;
 import br.com.parquimetro.parquimetro.model.Tarifa;
 import br.com.parquimetro.parquimetro.model.context.StatusParquimetro;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.Set;

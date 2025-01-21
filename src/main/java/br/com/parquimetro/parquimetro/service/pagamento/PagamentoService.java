@@ -1,6 +1,7 @@
 package br.com.parquimetro.parquimetro.service.pagamento;
 
-import br.com.parquimetro.parquimetro.controller.exception.ControllerNotFoundException;
+import br.com.parquimetro.parquimetro.erro.not_found.PagamentoNotFoundErro;
+import br.com.parquimetro.parquimetro.erro.not_found.SessaoNotFoundException;
 import br.com.parquimetro.parquimetro.dto.pagamento.CriarPagamentoDTO;
 import br.com.parquimetro.parquimetro.dto.pagamento.PagamentoDTO;
 import br.com.parquimetro.parquimetro.model.Pagamento;
@@ -28,7 +29,7 @@ public class PagamentoService {
 
     public PagamentoDTO save(CriarPagamentoDTO criarPagamentoDTO) {
         Sessao sessao = sessaoRepository.findById(criarPagamentoDTO.sessaoId())
-                .orElseThrow(() -> new IllegalArgumentException("Não foi possível encontrar a sessão com o id: " + criarPagamentoDTO.sessaoId()));
+                .orElseThrow(() -> new PagamentoNotFoundErro("não foi possível encontrar a sessão com o id: " + criarPagamentoDTO.sessaoId()));
         Pagamento pagamento = new Pagamento(sessao, CustoSessao.getCustoSessao(sessao),
                 criarPagamentoDTO.formaPagamento());
         sessao.setPagamento(pagamento);
@@ -44,7 +45,7 @@ public class PagamentoService {
             pagamentoRepository.save(sessao);
             return toPagamentoDTO(sessao.getPagamento());
         } catch (EntityNotFoundException e) {
-            throw new ControllerNotFoundException(e.getMessage());
+            throw new SessaoNotFoundException(e.getMessage());
         }
     }
 

@@ -1,14 +1,15 @@
 package br.com.parquimetro.parquimetro.controller;
 
-import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
-import br.com.parquimetro.parquimetro.dto.RequestTarifaDTO;
-import br.com.parquimetro.parquimetro.dto.TarifaDTO;
+import br.com.parquimetro.parquimetro.dto.parquimetro.ParquimetroDTO;
+import br.com.parquimetro.parquimetro.dto.tarifa.RequestTarifaDTO;
+import br.com.parquimetro.parquimetro.dto.tarifa.TarifaDTO;
 import br.com.parquimetro.parquimetro.service.tarifa.DeleteTarifaService;
 import br.com.parquimetro.parquimetro.service.tarifa.FindTarifaService;
 import br.com.parquimetro.parquimetro.service.tarifa.SaveTarifaService;
 import br.com.parquimetro.parquimetro.service.tarifa.UpdateTarifaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +63,7 @@ public class TarifaController {
             summary = "Cria uma tarifa.",
             description = "Cria uma tarifa"
     )
-    public ResponseEntity<TarifaDTO> save(@RequestBody RequestTarifaDTO req) {
+    public ResponseEntity<TarifaDTO> save(@Valid @RequestBody RequestTarifaDTO req) {
         return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(saveTarifa.save(req));
     }
 

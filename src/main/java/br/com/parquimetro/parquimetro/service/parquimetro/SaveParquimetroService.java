@@ -1,7 +1,7 @@
 package br.com.parquimetro.parquimetro.service.parquimetro;
 
-import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
-import br.com.parquimetro.parquimetro.dto.RequestParquimetroDTO;
+import br.com.parquimetro.parquimetro.dto.parquimetro.ParquimetroDTO;
+import br.com.parquimetro.parquimetro.dto.parquimetro.RequestParquimetroDTO;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.repository.ParquimetroRepository;
 import org.springframework.beans.factory.annotation.Autowired;

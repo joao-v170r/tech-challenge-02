@@ -1,7 +1,7 @@
 package br.com.parquimetro.parquimetro.service.parquimetro;
 
-import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
-import br.com.parquimetro.parquimetro.erro.ServiceParquimetroNotFoundErro;
+import br.com.parquimetro.parquimetro.dto.parquimetro.ParquimetroDTO;
+import br.com.parquimetro.parquimetro.erro.not_found.ParquimetroNotFoundErro;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.repository.ParquimetroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class FindParquimetroService extends ParquimetroService {
     }
 
     public ParquimetroDTO find(Long id) {
-        Parquimetro parquimetro = repository.findById(id).orElseThrow(() -> new ServiceParquimetroNotFoundErro("id parquimetro não existe"));
+        Parquimetro parquimetro = repository.findById(id).orElseThrow(() -> new ParquimetroNotFoundErro("id parquimetro não existe"));
         return toParquimetroDTO(parquimetro);
     }
 }

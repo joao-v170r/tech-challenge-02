@@ -1,7 +1,7 @@
 package br.com.parquimetro.parquimetro.service.sessao;
 
-import br.com.parquimetro.parquimetro.controller.exception.ControllerNotFoundException;
-import br.com.parquimetro.parquimetro.dto.sessao.CriarSessaoDTO;
+import br.com.parquimetro.parquimetro.erro.not_found.SessaoNotFoundException;
+import br.com.parquimetro.parquimetro.dto.sessao.RequestSessaoDTO;
 import br.com.parquimetro.parquimetro.dto.sessao.SessaoDTO;
 import br.com.parquimetro.parquimetro.model.Parquimetro;
 import br.com.parquimetro.parquimetro.model.Sessao;
@@ -32,7 +32,7 @@ public class SessaoService {
 
     public SessaoDTO findById(Long id) {
         Sessao sessao = sessaoRepository.findById(id).orElseThrow(() ->
-                new ControllerNotFoundException("Sessão não encontrada"));;
+                new SessaoNotFoundException("Sessão não encontrada"));;
         return toDTO(sessao);
     }
 
@@ -41,11 +41,11 @@ public class SessaoService {
         return sessoes.map(this::toDTO);
     }
 
-    public SessaoDTO save(CriarSessaoDTO criarSessaoDTO) {
-        Parquimetro parquimetro = parquimetroRepository.findById(criarSessaoDTO.parquimetroId())
-                .orElseThrow(() -> new IllegalArgumentException("Não foi possível encontrar o parquímetro com o id: " + criarSessaoDTO.parquimetroId()));
+    public SessaoDTO save(RequestSessaoDTO requestSessaoDTO) {
+        Parquimetro parquimetro = parquimetroRepository.findById(requestSessaoDTO.parquimetroId())
+                .orElseThrow(() -> new IllegalArgumentException("Não foi possível encontrar o parquímetro com o id: " + requestSessaoDTO.parquimetroId()));
         Sessao sessao = new Sessao(
-                criarSessaoDTO.placaCarro(),
+                requestSessaoDTO.placaCarro(),
                 parquimetro
         );
         return toDTO(sessaoRepository.save(sessao));
@@ -69,7 +69,7 @@ public class SessaoService {
             sessao = sessaoRepository.save(sessao);
             return toDTO(sessao);
         } catch (EntityNotFoundException e) {
-            throw new ControllerNotFoundException(e.getMessage());
+            throw new SessaoNotFoundException(e.getMessage());
         }
     }
 

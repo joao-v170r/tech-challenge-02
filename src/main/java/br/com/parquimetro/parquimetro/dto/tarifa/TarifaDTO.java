@@ -1,10 +1,7 @@
-package br.com.parquimetro.parquimetro.dto;
-
-import br.com.parquimetro.parquimetro.model.Parquimetro;
+package br.com.parquimetro.parquimetro.dto.tarifa;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.util.Set;
 
 public record TarifaDTO(
         Long id,

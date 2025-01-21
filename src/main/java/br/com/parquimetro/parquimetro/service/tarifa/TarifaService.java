@@ -1,7 +1,7 @@
 package br.com.parquimetro.parquimetro.service.tarifa;
 
-import br.com.parquimetro.parquimetro.dto.RequestTarifaDTO;
-import br.com.parquimetro.parquimetro.dto.TarifaDTO;
+import br.com.parquimetro.parquimetro.dto.tarifa.RequestTarifaDTO;
+import br.com.parquimetro.parquimetro.dto.tarifa.TarifaDTO;
 import br.com.parquimetro.parquimetro.model.Tarifa;
 import br.com.parquimetro.parquimetro.repository.TarifaRepository;
 

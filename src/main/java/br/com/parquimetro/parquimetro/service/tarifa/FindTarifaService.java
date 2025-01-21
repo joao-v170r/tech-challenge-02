@@ -1,8 +1,8 @@
 package br.com.parquimetro.parquimetro.service.tarifa;
 
-import br.com.parquimetro.parquimetro.dto.ParquimetroDTO;
-import br.com.parquimetro.parquimetro.dto.TarifaDTO;
-import br.com.parquimetro.parquimetro.erro.ServiceTarifaNotFoundErro;
+import br.com.parquimetro.parquimetro.dto.parquimetro.ParquimetroDTO;
+import br.com.parquimetro.parquimetro.dto.tarifa.TarifaDTO;
+import br.com.parquimetro.parquimetro.erro.not_found.TarifaNotFoundErro;
 import br.com.parquimetro.parquimetro.model.Tarifa;
 import br.com.parquimetro.parquimetro.repository.TarifaRepository;
 import br.com.parquimetro.parquimetro.service.parquimetro.ParquimetroService;
@@ -25,12 +25,12 @@ public class FindTarifaService extends TarifaService {
     }
 
     public TarifaDTO find(Long id) {
-        Tarifa tarifa = repository.findById(id).orElseThrow(() -> new ServiceTarifaNotFoundErro("id tarifa não existe"));
+        Tarifa tarifa = repository.findById(id).orElseThrow(() -> new TarifaNotFoundErro("id tarifa não existe"));
         return toTarifaDTO(tarifa);
     }
 
     public List<ParquimetroDTO> findParquimetrosOfTarifa(Long id) {
-        Tarifa tarifa = repository.findById(id).orElseThrow(() -> new ServiceTarifaNotFoundErro("id tarifa não existe"));
+        Tarifa tarifa = repository.findById(id).orElseThrow(() -> new TarifaNotFoundErro("id tarifa não existe"));
         return tarifa.getParquimetros().stream().map(ParquimetroService::toParquimetroDTO).toList();
     }
 }

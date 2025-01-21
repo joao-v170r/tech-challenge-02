@@ -1,6 +1,6 @@
 package br.com.parquimetro.parquimetro.controller;
 
-import br.com.parquimetro.parquimetro.dto.sessao.CriarSessaoDTO;
+import br.com.parquimetro.parquimetro.dto.sessao.RequestSessaoDTO;
 import br.com.parquimetro.parquimetro.dto.sessao.SessaoDTO;
 import br.com.parquimetro.parquimetro.service.sessao.SessaoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,9 +49,9 @@ public class SessaoController {
             summary = "Cria uma sessão.",
             description = "Veículo entrou no estacionamento, sessão em andamento."
     )
-    public ResponseEntity<SessaoDTO> save(@Valid @RequestBody CriarSessaoDTO criarSessaoDTO) {
-        sessaoService.save(criarSessaoDTO);
-        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(sessaoService.save(criarSessaoDTO));
+    public ResponseEntity<SessaoDTO> save(@Valid @RequestBody RequestSessaoDTO requestSessaoDTO) {
+        sessaoService.save(requestSessaoDTO);
+        return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(sessaoService.save(requestSessaoDTO));
     }
 
     @PutMapping("/{id}/finish")
