@@ -125,7 +125,6 @@ Observação: Esta requisição não precisa de corpo, o id é captado da url, e
 
 ## API
 
-
 ### Pagamento
 
 | Método | URL | Ação |
@@ -145,6 +144,7 @@ Observação: Esta requisição não precisa de corpo, o id é captado da url, e
 | DELETE | /tarifa/{id} | Deleta uma tarifa. |
 | GET | /tarifa/{id}/parquimetros | Lista todos os parquimetros da tarifa. |
 
+<br>
 
 ### Sessão
 
