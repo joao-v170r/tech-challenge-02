@@ -117,6 +117,7 @@ Exemplo de envio:
   "formaPagamento": "PIX"
 }
  ```
+Observação: Apenas é necessário realizar o pagamento caso ultrapasse a tolerância do parquímetro. Caso esteja dentro da tolerância, poderá finalizar a sessão diretamente.
 
 ### Finalizar sessão `POST /sessao/{id}/finish`
 Observação: Esta requisição não precisa de corpo, o id é captado da url, e é verificado se o pagamento já foi realizado. 
