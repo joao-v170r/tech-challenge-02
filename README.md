@@ -49,8 +49,6 @@ O projeto pode ser acessado em: https://github.com/joao-v170r/tech-challenge-02
  
 O Swagger pode ser acessado diretamente em `http://localhost:8080/swagger-ui/index.html`. 
 
-Por padrão o banco de dados em memória já possuirá um parquímetro e duas tarifas cadastradas.
-
 ***
 
 ## Banco de dados
@@ -64,7 +62,7 @@ Por padrão o banco de dados em memória já possuirá um parquímetro e duas ta
 
 ## Fluxo principal
 
-Você deve inicialmente cadastrar um parquímetro (`POST /parquimetro`), cadastrar tarifas (`POST /tarifa`) e vincular a tarifa ao parquímetro (`POST /parquimetro/link-tarifa`). No projeto por padrão já haverá um parquímetro cadastrado com duas tarifas associadas a ele. 
+Você deve inicialmente cadastrar um parquímetro (`POST /parquimetro`), cadastrar tarifas (`POST /tarifa`) e vincular a tarifa ao parquímetro (`POST /parquimetro/link-tarifa`). 
 
 A entrada do veículo no estacionamento é sinalizado com a criação de uma sessão (`POST /sessao/init`). Para sair do estacionamento após o tempo de tolerância, é necessário realizar um pagamento (`POST /pagamento/init`). Após o pagamento, na saída, a sessão será finalizada (`PUT /sessao/{id}/finish`). 
 
